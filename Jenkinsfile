@@ -7,35 +7,10 @@ pipeline {
       }
     }
 
-    stage("validate the code") {
-      steps {
-        withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-          sh 'mvn validate'
-          echo "webhook added verify"
-        }
-      }
-    }
-
-    stage("Compile the code") {
-      steps {
-        withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-          sh 'mvn compile'
-        }
-      }
-    }
-
-    stage("Test the code") {
-      steps {
-        withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-          sh 'mvn test'
-        }
-      }
-    }
-
     stage("Package the code") {
       steps {
         withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-          sh 'mvn package'
+          sh 'mvn clean package'
         }
       }
     }
