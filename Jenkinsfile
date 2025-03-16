@@ -17,7 +17,7 @@ pipeline {
 
     stage('Deploy to Remote Tomcat Server') {
       steps {
-        sh 'scp target/*.war ec2-user@13.126.197.78:/opt/tomcat/webapps/'
+        sh 'scp target/*.war ec2-user@172.31.13.128:/usr/share/tomcat/webapps/'
       }
     }
   }
