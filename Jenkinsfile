@@ -7,7 +7,17 @@ pipeline {
       }
     }
 
-    // stage('Sonar Scanning') {
+    stage("Hello") {
+      steps {
+        withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+          sh 'mvn validate'
+        }
+      }
+    }
+  }
+}
+
+ // stage('Sonar Scanning') {
     //   steps {
 
     //     withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
@@ -19,11 +29,3 @@ pipeline {
         
     //   }
     // }
-
-    stage("Hello"){
-      steps{
-        echo "Hello World"
-      }
-    }
-  }
-}
