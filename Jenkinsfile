@@ -9,7 +9,7 @@ pipeline {
 
     stage("Package the code") {
       steps {
-        withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+        withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
           sh 'mvn clean package'
         }
       }
@@ -17,7 +17,9 @@ pipeline {
 
     stage('Deploy to Remote Tomcat Server') {
       steps {
-        sh 'scp -o StrictHostKeyChecking=no webapp/target/*.war ec2-user@172.31.13.128:/usr/share/tomcat/webapps/'
+        sshagent(['jenkins-apache']) {
+          sh 'scp -o StrictHostKeyChecking=no webapp/target/*.war ec2-user@172.31.13.128:/usr/share/tomcat/webapps/'
+        }
       }
     }
   }
