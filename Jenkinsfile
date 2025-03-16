@@ -17,7 +17,7 @@ pipeline {
 
     stage('Deploy to Remote Tomcat Server') {
       steps {
-        sh 'scp target/*.war ec2-user@172.31.13.128:/usr/share/tomcat/webapps/'
+        sh 'scp -o StrictHostKeyChecking=no webapp/target/*.war ec2-user@172.31.13.128:/usr/share/tomcat/webapps/'
       }
     }
   }
