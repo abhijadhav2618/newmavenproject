@@ -7,21 +7,20 @@ pipeline {
       }
     }
 
-    stage("Package the code") {
-      steps {
+    stage("sonar-scanning") {
+    steps {
         withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
-          sh 'mvn clean package'
+            withSonarQubeEnv(credentialsId: 'sonar-token', installationName: 'sonar') {
+                sh 'mvn clean package sonar:sonar'
+            }
         }
-      }
     }
+}
 
-    stage('Deploy to Remote Tomcat Server') {
-      steps {
-        sshagent(['jenkins-apache']) {
-          sh 'scp -o StrictHostKeyChecking=no webapp/target/*.war ec2-user@172.31.13.128:/usr/share/tomcat/webapps/'
-        }
-      }
-    }
+
+    
+
+
   }
 }
 
