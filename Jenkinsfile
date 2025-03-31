@@ -30,6 +30,12 @@ pipeline{
                     }
                 }
             }
+
+            stage("docker build"){
+                steps{
+                    sh "docker build -t abhijadhav2618/devops923:latest"
+                }
+            }
         
     }
 }
