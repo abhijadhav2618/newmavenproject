@@ -33,14 +33,14 @@ pipeline{
 
             stage("docker build"){
                 steps{
-                    sh "docker build -t abhijadhav2618/devops923:latest ."
+                    sh "docker build -t abhijadhav2618/newmaven:latest ."
                 }
             }
 
             stage("Push image to docker hub"){
                 steps{
                     withDockerRegistry(credentialsId: 'Docker_Hub_Cred',  url:"https://index.docker.io/v1/") {
-                        sh "docker push abhijadhav2618/devops923:latest"
+                        sh "docker push abhijadhav2618/newmaven:latest"
 
                     }   
                 }
